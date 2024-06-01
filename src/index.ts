@@ -25,10 +25,13 @@ async function insertUserData(
 	email: string
 ) {
 	await client.connect();
-	const result = await client.query(`
+	const result = await client.query(
+		`
     INSERT INTO users (username, password, email) 
-    VALUES ('${username}', '${password}', '${email}')
-  `);
+    VALUES ($1, $2, $3)
+  `,
+		[username, password, email]
+	);
 	console.log(result);
 }
 
